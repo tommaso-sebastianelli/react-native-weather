@@ -20,7 +20,6 @@ function Main(props) {
     }, [searchValue]);
 
     const onChangeText = text => {
-        console.log(text);
         setSearchValue(text);
     };
 
@@ -34,7 +33,7 @@ function Main(props) {
                 mode="outlined" />
             {(loading) ?
                 <ActivityIndicator animating={true} />
-                : result.map(r => <List.Item
+                : result && result.map(r => <List.Item
                     title="First Item"
                     description="Item description"
                     left={props => <List.Icon icon="folder" />}

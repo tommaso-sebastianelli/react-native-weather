@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     loading: false,
     searchValue: null,
-    data: [],
+    data: null,
     error: null
 };
 
@@ -22,12 +22,12 @@ const slice = createSlice({
         },
         failure: (state, { payload }) => {
             state.loading = false,
-                state.data = [],
+                state.data = null,
                 state.error = payload.error
         },
         clear: (state, { payload }) => {
             state.loading = false,
-                state.data = [],
+                state.data = null,
                 state.error = null
         }
     }

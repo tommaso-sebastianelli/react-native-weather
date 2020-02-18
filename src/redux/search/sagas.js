@@ -1,5 +1,7 @@
-import { all, cancel, delay, put, take, throttle } from 'redux-saga/effects';
+import { all, cancel, delay, put, select, take, throttle } from 'redux-saga/effects';
 import { actions } from './slice';
+import { searchValueSelector } from './selectors';
+import { locationSearch } from '../../api'
 
 function* searchFlow() {
     while (true) {
@@ -11,9 +13,10 @@ function* searchFlow() {
 }
 
 function* getData() {
-    const data = yield Promise.resolve([1, 2, 3]);
+    const searchString = yield select(searchValueSelector);
     try {
-        yield delay(2000);
+        const {data} = yield locationSearch(searchString);
+        console.log(data);
         console.log('search action success');
         yield put(actions.success({ data: data }));
     } catch (e) {
