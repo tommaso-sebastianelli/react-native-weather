@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-    name: 'location',
+    name: 'search',
     initialState: initialState,
     reducers: {
         start: (state, { payload }) => {
@@ -25,6 +25,11 @@ const slice = createSlice({
                 state.data = [],
                 state.error = payload.error
         },
+        clear: (state, { payload }) => {
+            state.loading = false,
+                state.data = [],
+                state.error = null
+        }
     }
 });
 

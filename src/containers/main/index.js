@@ -1,30 +1,46 @@
-import { Input, Item, View, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
-import React, { memo } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { memo, useState, useEffect, useCallback } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import { debounce } from 'lodash';
+import { actions } from '../../redux/search/slice';
+import { dataSelector, loadingSelector } from '../../redux/search/selectors';
+import { TextInput, List, ActivityIndicator, Colors } from 'react-native-paper';
+
 
 function Main(props) {
-    const { } = props
+    const { dispatchClear, dispatchSearch, loading, result } = props;
+    const [searchValue, setSearchValue] = useState('');
+
+    useEffect(() => {
+        if (searchValue.length >= 3) {
+            dispatchSearch(searchValue);
+        }else{
+            dispatchClear();
+        }
+    }, [searchValue]);
+
+    const onChangeText = text => {
+        console.log(text);
+        setSearchValue(text);
+    };
 
     return (
         <View style={style.view}>
-            <Item rounded>
-                <Input placeholder='Rounded Textbox' />
-            </Item>
-            <List style={style.list}>
-                <ListItem avatar>
-                    <Left>
-                        <Thumbnail source={{ uri: 'Image URL' }} />
-                    </Left>
-                    <Body>
-                        <Text>Kumar Pratik</Text>
-                        <Text note>Doing what you like will always keep you happy . .</Text>
-                    </Body>
-                    <Right>
-                        <Text note>3:43 pm</Text>
-                    </Right>
-                </ListItem>
-            </List>
+            <TextInput
+                style={style.input}
+                label='Type a location'
+                value={searchValue}
+                onChangeText={text => onChangeText(text)}
+                mode="outlined" />
+            {(loading) ?
+                <ActivityIndicator animating={true} />
+                : result.map(r => <List.Item
+                    title="First Item"
+                    description="Item description"
+                    left={props => <List.Icon icon="folder" />}
+                />)
+            }
+
         </View>
     )
 }
@@ -35,18 +51,19 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         flex: 1
     },
-    list: {
-        marginTop: 16,
-        left: 0
+    input: {
+        marginBottom: 16,
     }
 });
 
 const mapStateToProps = (state) => ({
-
+    loading: loadingSelector(state),
+    result: dataSelector(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
+    dispatchSearch: (value) => dispatch(actions.start({ searchValue: value })),
+    dispatchClear: ()=> dispatch(actions.clear())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Main))
