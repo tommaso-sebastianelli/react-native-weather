@@ -33,10 +33,10 @@ function Main(props) {
                 mode="outlined" />
             {(loading) ?
                 <ActivityIndicator animating={true} />
-                : result && result.map(r => <List.Item
-                    title="First Item"
-                    description="Item description"
-                    left={props => <List.Icon icon="folder" />}
+                : result && result.map(({title, location_type}) => <List.Item
+                    title={title}
+                    description={location_type}
+                    left={props => <List.Icon icon="map-marker-outline" />}
                 />)
             }
 
