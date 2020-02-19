@@ -34,7 +34,6 @@ target 'reactNativeWeather' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'reactNativeWeatherTests' do
     inherit! :search_paths
@@ -42,14 +41,4 @@ target 'reactNativeWeather' do
   end
 
   use_native_modules!
-end
-
-target 'reactNativeWeather-tvOS' do
-  # Pods for reactNativeWeather-tvOS
-
-  target 'reactNativeWeather-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
