@@ -82,7 +82,6 @@ const style = StyleSheet.create({
     },
     searchForm: {
         padding: 64,
-        // justifyContent: 'center',
         flex: 0.3
     },
     input: {
