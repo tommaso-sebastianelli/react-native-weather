@@ -6,7 +6,7 @@ import { dataSelector, loadingSelector } from '../../redux/search/selectors';
 import { actions } from '../../redux/search/slice';
 import Pulse from 'react-native-pulse';
 
-class Main extends Component {
+class Home extends Component {
     constructor(props) {
         super(props)
         console.log(props);
@@ -107,4 +107,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchClear: () => dispatch(actions.clear())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(withTheme(Main)))
+export default connect(mapStateToProps, mapDispatchToProps)(memo(withTheme(Home)))
