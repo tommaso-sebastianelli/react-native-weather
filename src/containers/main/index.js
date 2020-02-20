@@ -20,8 +20,6 @@ class Main extends Component {
     onSubmit = () => {
         if (this.state.searchValue.trim().length >= 3) {
             this.props.dispatchSearch(this.state.searchValue);
-        } else {
-            this.props.dispatchClear();
         }
     }
 
@@ -29,6 +27,9 @@ class Main extends Component {
         this.setState({
             searchValue: text
         });
+        if (this.state.searchValue.length < 3) {
+            this.props.dispatchClear();
+        }
     };
 
     render() {
@@ -87,7 +88,7 @@ const style = StyleSheet.create({
     input: {
         marginBottom: 16,
     },
-    pulse:{
+    pulse: {
         position: 'absolute'
     },
     footer: {
