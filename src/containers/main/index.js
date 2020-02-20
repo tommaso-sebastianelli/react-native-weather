@@ -1,21 +1,13 @@
-import React, { memo, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, List, TextInput } from 'react-native-paper';
+import React, { memo, useState, useEffect } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Button, List, TextInput, Title, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { dataSelector, loadingSelector } from '../../redux/search/selectors';
 import { actions } from '../../redux/search/slice';
 
 function Main(props) {
-    const { dispatchClear, dispatchSearch, loading, result } = props;
-    const [searchValue, setSearchValue] = useState('');
-
-    // useEffect(() => {
-    //     if (searchValue.trim().length >= 3) {
-    //         dispatchSearch(searchValue);
-    //     }else{
-    //         dispatchClear();
-    //     }
-    // }, [searchValue]);
+    const { dispatchClear, dispatchSearch, loading, result, theme } = props;
+    const [searchValue, setSearchValue] = useState('')
 
     const onSubmit = () => {
         if (searchValue.trim().length >= 3) {
@@ -30,36 +22,60 @@ function Main(props) {
     };
 
     return (
-        <View style={style.view}>
-            <TextInput
-                style={style.input}
-                label='Type a location'
-                value={searchValue}
-                onChangeText={text => onChangeText(text)}
-                mode="outlined"
-                onSubmitEditing={onSubmit}
-            />
-            {(loading) ?
-                <ActivityIndicator animating={true} />
-                : result && result.map(({ title, location_type }) => <List.Item
-                    title={title}
-                    description={location_type}
-                    left={props => <List.Icon icon="map-marker-outline" />}
-                />)
-            }
+        <>
+            <View style={style.title}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Button icon="weather-sunny"></Button>
+                    <Button icon="weather-pouring"></Button>
+                    <Button icon="weather-windy"></Button>
+                    <Button icon="weather-lightning"></Button>
+                </View>
+                <Title style={{ color: theme.colors.primary }}>
+                    react native weather
+                </Title>
+            </View>
+            <View style={style.searchForm}>
+                <Title>Location</Title>
+                <TextInput
+                    style={style.input}
+                    label='Type a city here'
+                    value={searchValue}
+                    onChangeText={text => onChangeText(text)}
+                    mode="outlined"
+                    onSubmitEditing={onSubmit}
+                />
+                {(loading) ?
+                    <ActivityIndicator animating={true} />
+                    : result && result.map(({ title, location_type }) => <List.Item
+                        title={title}
+                        description={location_type}
+                        left={props => <List.Icon icon="map-marker-outline" />}
+                    />)
+                }
 
-        </View>
+            </View>
+            <View style={style.footer}>
+            </View>
+        </>
     )
 }
 
 const style = StyleSheet.create({
-    view: {
-        padding: 32,
-        justifyContent: 'center',
-        flex: 1
+    title: {
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flex: 0.3,
+    },
+    searchForm: {
+        padding: 64,
+        // justifyContent: 'center',
+        flex: 0.5
     },
     input: {
         marginBottom: 16,
+    },
+    footer:{
+        flex: 0.2,
     }
 });
 
@@ -73,4 +89,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchClear: () => dispatch(actions.clear())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(Main))
+export default connect(mapStateToProps, mapDispatchToProps)(memo(withTheme(Main)))
