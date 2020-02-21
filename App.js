@@ -11,18 +11,19 @@ import Home from './src/containers/home';
 import Forecasts from './src/containers/forecasts';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
+import { navigationRef } from './rootNavigation';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName="Forecasts">
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator headerMode="none" initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Forecasts" component={Forecasts} />
         </Stack.Navigator>
-      </NavigationContainer>  
+      </NavigationContainer>
     </>
   );
 };

@@ -12,10 +12,17 @@ const locationSearch = queryString => {
     return axios.get(locationSearchUrl);
 }
 
-// Location information, and a 5 day forecast
+// Location 6 day forecast
 // /api/location/(woeid)/
 const location = id => {
     const locationUrl = `${BASE_URL}${PATHS.LOCATION}${id}`;
+    return axios.get(locationUrl);
+}
+
+// Location 3 chunk hour forecast
+// /api/location/(woeid)/
+const locationDate = (id, year, month, day) => {
+    const locationUrl = `${BASE_URL}${PATHS.LOCATION}${id}/${year}/${month}/${day}`;
     return axios.get(locationUrl);
 }
 

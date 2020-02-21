@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import searchSlice from './search/slice'
+import homeSlice from './home/slice'
+import forecastsSlice from './forecasts/slice'
 
 export default combineReducers({
-    search: searchSlice.reducer
+    home: homeSlice.reducer,
+    forecasts: forecastsSlice.reducer
 });

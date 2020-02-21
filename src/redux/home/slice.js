@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    loading: false,
-    searchValue: null,
     data: null,
-    error: null
+    error: null,
+    loading: false,
+    location: null,
+    searchValue: null
 };
 
 const slice = createSlice({
-    name: 'search',
+    name: 'home',
     initialState: initialState,
     reducers: {
         start: (state, { payload }) => {
@@ -29,6 +30,9 @@ const slice = createSlice({
             state.loading = false,
                 state.data = null,
                 state.error = null
+        },
+        setLocation: (state, { payload }) => {
+            state.location = payload.location
         }
     }
 });

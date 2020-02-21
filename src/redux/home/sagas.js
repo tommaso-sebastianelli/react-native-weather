@@ -15,7 +15,7 @@ function* searchFlow() {
 function* getData() {
     const searchString = yield select(searchValueSelector);
     try {
-        const {data} = yield locationSearch(searchString);
+        const { data } = yield locationSearch(searchString);
         console.log(data);
         console.log('search action success');
         yield put(actions.success({ data: data }));
@@ -27,6 +27,6 @@ function* getData() {
 
 export default function* searchSaga() {
     yield all([
-        searchFlow()
+        searchFlow(),
     ])
 }

@@ -1,6 +1,8 @@
 import { spawn } from 'redux-saga/effects';
-import searchSagas from './search/sagas'
+import homeSagas from './home/sagas'
+import forecastsSagas from './forecasts/sagas'
 
 export default function* rootSaga() {
-    yield spawn(searchSagas)
+    yield spawn(homeSagas),
+    yield spawn(forecastsSagas)
 }

@@ -1,10 +1,10 @@
 import React, { Component, memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, List, TextInput, Title, withTheme } from 'react-native-paper';
-import { connect } from 'react-redux';
-import { dataSelector, loadingSelector } from '../../redux/search/selectors';
-import { actions } from '../../redux/search/slice';
 import Pulse from 'react-native-pulse';
+import { connect } from 'react-redux';
+import { dataSelector, loadingSelector } from '../../redux/home/selectors';
+import { actions } from '../../redux/home/slice';
 
 class Home extends Component {
     constructor(props) {
@@ -32,6 +32,10 @@ class Home extends Component {
         }
     };
 
+    setLocation = location =>{
+        this.props.dispatchSetLocation(location);
+    }
+
     render() {
         return (
             <>
@@ -58,10 +62,12 @@ class Home extends Component {
                     />
                     {(this.props.loading) ?
                         <ActivityIndicator animating={true} />
-                        : this.props.result && this.props.result.map(({ title, location_type }) => <List.Item
-                            title={title}
-                            description={location_type}
-                            left={props => <List.Icon icon="map-marker-outline" />}
+                        : this.props.result && this.props.result.map((location) => <List.Item
+                            title={location.title}
+                            description={location.location_type}
+                            left={props => <List.Icon icon="map-marker-outline"
+                            onPress={location => setLocation(location)} />
+                        }
                         />)
                     }
 
@@ -103,7 +109,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     dispatchSearch: (value) => dispatch(actions.start({ searchValue: value })),
-    dispatchClear: () => dispatch(actions.clear())
+    dispatchClear: () => dispatch(actions.clear()),
+    dispatchSetLocation: location => dispatch(actions.setLocation(location))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(withTheme(Home)))
