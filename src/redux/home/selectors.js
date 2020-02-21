@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
-const loading = state => state.search.loading
-const data = state => state.search.data
-const searchValue = state => state.search.searchValue
-const location = state => state.search.location
+const loading = state => state.home.loading
+const data = state => state.home.data
+const searchValue = state => state.home.searchValue
+const location = state => state.home.location
 
 export const loadingSelector = createSelector(
     loading,

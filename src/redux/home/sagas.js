@@ -16,7 +16,7 @@ function* getData() {
     const searchString = yield select(searchValueSelector);
     try {
         const { data } = yield locationSearch(searchString);
-        console.log(data);
+        // console.log(data);
         console.log('search action success');
         yield put(actions.success({ data: data }));
     } catch (e) {

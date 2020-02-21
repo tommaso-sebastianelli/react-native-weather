@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-    name: 'search',
+    name: 'forecasts',
     initialState: initialState,
     reducers: {
         start: (state, { payload }) => {

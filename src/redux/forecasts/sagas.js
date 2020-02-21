@@ -1,7 +1,7 @@
-import { all, put, select, take } from 'redux-saga/effects';
+import { all, put, select, take, call } from 'redux-saga/effects';
 import * as RootNavigation from '../../../rootNavigation';
 import { currentLocationSelector } from '../home/selectors';
-import { action as homeActions } from '../home/slice';
+import { actions as homeActions } from '../home/slice';
 import { actions } from './slice';
 import { location, locationDate } from '../../api'
 
