@@ -10,5 +10,5 @@ export const errorSelector = createSelector(
 
 export const dataSelector = createSelector(
     data,
-    val => val
+    val => ({ ...val, daily: val.daily.slice(0, 6) })
 )

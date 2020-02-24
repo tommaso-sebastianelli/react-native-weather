@@ -1,21 +1,25 @@
 import React, { memo } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { List, Text } from 'react-native-paper';
+import { List, Text, withTheme } from 'react-native-paper';
+import { iconMap } from '../../utils';
 
 function ForecastDay(props) {
-    const { } = props
+    const { data, theme } = props
 
     return (
         <View>
             <List.Subheader>Today</List.Subheader>
             <View style={style.timeFrameBox}>
-                {[1, 2, 3, 4, 5].map(data => <View style={style.timeFrame}>
-                    <List.Icon icon="weather-pouring" />
-                    <Text>25°</Text>
-                    <Text>03&nbsp;</Text>
+                {data.reverse().map((tf, index) => <View
+                key={index}
+                style={style.timeFrame}
+                >
+                    <List.Icon icon={iconMap(tf.weather_state_abbr)} />
+                    <Text>{Math.floor(tf.the_temp)}°</Text>
+                    <Text style={{ color: theme.colors.placeholder }}>{new Date(tf.created).getHours()}&nbsp;</Text>
                 </View>)}
             </View>
-        </View>
+        </View >
     )
 }
 
@@ -24,4 +28,4 @@ const style = StyleSheet.create({
     timeFrame: { alignItems: 'center' }
 });
 
-export default memo(ForecastDay)
+export default withTheme(memo(ForecastDay))
