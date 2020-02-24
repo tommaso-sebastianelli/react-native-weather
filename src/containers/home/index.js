@@ -62,7 +62,8 @@ class Home extends Component {
                     />
                     {(this.props.loading) ?
                         <ActivityIndicator animating={true} />
-                        : this.props.result && this.props.result.map((location) => <List.Item
+                        : this.props.result && this.props.result.map((location, index) => <List.Item
+                            key={index}
                             title={location.title}
                             description={location.location_type}
                             left={props => <List.Icon icon="map-marker-outline"
