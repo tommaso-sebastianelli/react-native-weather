@@ -21,9 +21,9 @@ const location = id => {
 
 // Location 3 chunk hour forecast
 // /api/location/(woeid)/
-const locationDate = (id, year, month, day) => {
-    const locationUrl = `${BASE_URL}${PATHS.LOCATION}${id}/${year}/${month}/${day}`;
+const locationDate = (id, date) => {
+    const locationUrl = `${BASE_URL}${PATHS.LOCATION}${id}/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     return axios.get(locationUrl);
 }
 
-export { locationSearch, location }
+export { locationSearch, location, locationDate }

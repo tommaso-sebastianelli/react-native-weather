@@ -12,7 +12,7 @@ export const loadingSelector = createSelector(
 
 export const dataSelector = createSelector(
     data,
-    val => val
+    val => val && val.slice(0, 3)
 )
 
 export const searchValueSelector = createSelector(

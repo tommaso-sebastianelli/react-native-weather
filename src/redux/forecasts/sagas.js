@@ -8,7 +8,6 @@ import { location, locationDate } from '../../api'
 function* setLocationFlow() {
     while (true) {
         yield take(homeActions.setLocation.type);
-        yield call(() => RootNavigation.navigate('Forecasts'));
         yield put(actions.start());
     }
 }
@@ -24,11 +23,18 @@ function* getData() {
     const { woeid } = yield select(currentLocationSelector);
     const now = new Date();
     try {
-        const { data } = yield all([location(woeid), locationDate(now.getFullYear(), now.getMonth() + 1, now.getDate())]);
+        const daily = (yield locationDate(woeid, now)).data;
+        const weekly = (yield location(woeid)).data;
+        const data = {
+            daily,
+            weekly
+        };
         console.log(data);
         console.log('get forecast success');
         yield put(actions.success({ data: data }));
+        yield call(() => RootNavigation.navigate('Forecasts'));
     } catch (e) {
+        console.log(e);
         console.log('get forcast failure');
         yield put(actions.failure({ error: 'an error occurred' }));
     }

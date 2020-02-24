@@ -1,9 +1,10 @@
 import React, { Component, memo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button, List, TextInput, Title, withTheme } from 'react-native-paper';
+import { ActivityIndicator, Button, List, TextInput, Title, withTheme, Snackbar } from 'react-native-paper';
 import Pulse from 'react-native-pulse';
 import { connect } from 'react-redux';
 import { dataSelector, loadingSelector } from '../../redux/home/selectors';
+import { errorSelector } from '../../redux/forecasts/selectors';
 import { actions } from '../../redux/home/slice';
 
 class Home extends Component {
@@ -12,10 +13,17 @@ class Home extends Component {
         console.log(props);
 
         this.state = {
-            searchValue: ''
+            searchValue: '',
+            hasError: false
         }
-
     }
+
+    componentDidUpdate(oldProps) {
+        const newProps = this.props
+        if(oldProps.error !== newProps.error) {
+          this.setState({hasError: !!newProps.error})
+        }
+      }
 
     onSubmit = () => {
         if (this.state.searchValue.trim().length >= 3) {
@@ -32,7 +40,7 @@ class Home extends Component {
         }
     };
 
-    setLocation = location =>{
+    setLocation = location => {
         this.props.dispatchSetLocation(location);
     }
 
@@ -63,12 +71,13 @@ class Home extends Component {
                     {(this.props.loading) ?
                         <ActivityIndicator animating={true} />
                         : this.props.result && this.props.result.map((location, index) => <List.Item
+                            onPress={() => this.setLocation(location)}
                             key={index}
                             title={location.title}
                             description={location.location_type}
                             left={props => <List.Icon icon="map-marker-outline"
-                            onPress={location => setLocation(location)} />
-                        }
+                            />
+                            }
                         />)
                     }
 
@@ -76,6 +85,13 @@ class Home extends Component {
                 <View style={style.footer}>
                     <Pulse style={style.pulse} color={this.props.theme.colors.primary} numPulses={4} initialDiameter={500} diameter={800} speed={20} duration={3000} />
                 </View>
+                <Snackbar
+                    visible={this.state.hasError}
+                    onDismiss={()=>{
+                        this.setState({hasError: false})
+                    }}>
+                    {this.props.error}
+                </Snackbar>
             </>
         )
     }
@@ -105,13 +121,14 @@ const style = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     loading: loadingSelector(state),
-    result: dataSelector(state)
+    result: dataSelector(state),
+    error: errorSelector(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
     dispatchSearch: (value) => dispatch(actions.start({ searchValue: value })),
     dispatchClear: () => dispatch(actions.clear()),
-    dispatchSetLocation: location => dispatch(actions.setLocation(location))
+    dispatchSetLocation: location => dispatch(actions.setLocation({ location }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(withTheme(Home)))
