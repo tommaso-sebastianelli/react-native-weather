@@ -54,7 +54,7 @@ class Home extends Component {
                         <Button icon="weather-windy"></Button>
                         <Button icon="weather-snowy"></Button>
                     </View>
-                    <Title style={{ color: this.props.theme.colors.primary }}>
+                    <Title style={{ color: this.props.theme.colors.primary, letterSpacing: 2, left: -4 }}>
                         react native weather
                     </Title>
                 </View>
