@@ -9,9 +9,9 @@ A react native forecasts app.
 
 ### Screenshots
 <p align="center">
-<img src="https://github.com/tommaso-sebastianelli/react-native-weather/blob/master/screenshots/screen_01.gif" width="256">
+<img src="https://github.com/tommaso-sebastianelli/react-native-weather/blob/master/screenshots/screen_01.png" width="256">
 
-<img src="https://github.com/tommaso-sebastianelli/react-native-weather/blob/master/screenshots/screen_02.gif" width="256">
+<img src="https://github.com/tommaso-sebastianelli/react-native-weather/blob/master/screenshots/screen_02.png" width="256">
 </p>
 
 ## Setup
