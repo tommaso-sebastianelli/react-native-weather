@@ -49,6 +49,8 @@ class Home extends Component {
             <>
                 <View style={style.title}>
                     <View style={{ flexDirection: 'row' }}>
+                        {/* this invisible button is for fixing a graphic behavior on android */}
+                        <Button style={{display:'none'}} icon=""></Button>
                         <Button icon="weather-sunny"></Button>
                         <Button icon="weather-pouring"></Button>
                         <Button icon="weather-windy"></Button>
