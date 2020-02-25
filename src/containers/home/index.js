@@ -52,7 +52,7 @@ class Home extends Component {
                         <Button icon="weather-sunny"></Button>
                         <Button icon="weather-pouring"></Button>
                         <Button icon="weather-windy"></Button>
-                        <Button icon="weather-lightning"></Button>
+                        <Button icon="weather-snowy"></Button>
                     </View>
                     <Title style={{ color: this.props.theme.colors.primary }}>
                         react native weather
@@ -69,7 +69,7 @@ class Home extends Component {
                         onSubmitEditing={this.onSubmit}
                     />
                     {(this.props.loading) ?
-                        <ActivityIndicator animating={true} />
+                        <ActivityIndicator style={{marginTop: 16}} animating={true} />
                         : this.props.result && this.props.result.map((location, index) => <List.Item
                             onPress={() => this.setLocation(location)}
                             key={index}

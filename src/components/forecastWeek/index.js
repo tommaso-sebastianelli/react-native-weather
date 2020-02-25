@@ -6,7 +6,7 @@ import { iconMap, weekDay } from '../../utils';
 function ForecastWeek(props) {
     const { data } = props;
     return (
-        <View>
+        <View style={{marginTop: 16}}>
             <List.Section>
                 <List.Subheader>This Week</List.Subheader>
                 {data.map((wd, index) => (index === 0) ? null : <List.Item

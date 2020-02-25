@@ -33,6 +33,7 @@ function* getData() {
         console.log('get forecast success');
         yield put(actions.success({ data: data }));
         yield call(() => RootNavigation.navigate('Forecasts'));
+        yield put(homeActions.clear());
     } catch (e) {
         console.log(e);
         console.log('get forcast failure');
