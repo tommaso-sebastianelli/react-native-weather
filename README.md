@@ -1,6 +1,6 @@
 # React Native Weather
 
-A react native forecasts app powerd by [React Native Paper](https://github.com/callstack/react-native-paper).
+A react native forecasts app developed using [React Native Paper](https://github.com/callstack/react-native-paper).
 
 ### Preview
 <p align="center">
